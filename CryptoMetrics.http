@@ -1,0 +1,11 @@
+@CryptoMetrics_HostAddress = http://localhost:5071
+
+GET {{CryptoMetrics_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{CryptoMetrics_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
