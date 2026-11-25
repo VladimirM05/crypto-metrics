@@ -2,9 +2,10 @@ meta:
   environment: csharp
   toolchain:
     name: dotnet
-    version: 11.0
+    version: "11.0"
 
 run:
-  buildFileName: bin/CryptoMetrics
+  build: dotnet publish -c Release -o out
+  command: dotnet out/CryptoMetrics.dll
   persistenceMount: /data
   containerPort: 80
