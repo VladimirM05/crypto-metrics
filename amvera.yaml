@@ -2,7 +2,7 @@ meta:
   environment: csharp
   toolchain:
     name: dotnet
-    version: 8.0
+    version: 11.0
 
 run:
   buildFileName: bin/CryptoMetrics
