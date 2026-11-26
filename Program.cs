@@ -1,3 +1,4 @@
+using Microsoft.OpenApi;
 using CryptoMetrics.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,15 @@ builder.Services.AddScoped<IIndicatorService, IndicatorService>();
 builder.Services.AddScoped<IMarketAnalysisService, MarketAnalysisService>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CryptoMetrics API",
+        Version = "v1",
+        Description = "Веб-API для технического анализа криптовалют (SMA, EMA, RSI) на основе данных CoinGecko."
+    });
+});
 
 var app = builder.Build();
 

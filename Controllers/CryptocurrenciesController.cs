@@ -6,6 +6,7 @@ namespace CryptoMetrics.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Produces("application/json")]
 public class CryptocurrenciesController : ControllerBase
 {
     private readonly IExternalApiService _api;
@@ -16,6 +17,8 @@ public class CryptocurrenciesController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Cryptocurrency>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
     public async Task<ActionResult<IEnumerable<Cryptocurrency>>> Get()
     {
         try

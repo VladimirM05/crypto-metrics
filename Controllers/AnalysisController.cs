@@ -6,6 +6,7 @@ namespace CryptoMetrics.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Produces("application/json")]
 public class AnalysisController : ControllerBase
 {
     private readonly IMarketAnalysisService _service;
@@ -16,12 +17,15 @@ public class AnalysisController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<MarketAnalysisResult>), StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<MarketAnalysisResult>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(MarketAnalysisResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<MarketAnalysisResult> GetById(int id)
     {
         var result = _service.GetById(id);
@@ -32,6 +36,10 @@ public class AnalysisController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(MarketAnalysisResult), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
     public async Task<ActionResult<MarketAnalysisResult>> Post([FromBody] AnalysisRequest request)
     {
         try
